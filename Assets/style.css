@@ -1,0 +1,42 @@
+* {
+    border:solid red 1px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+ul {
+    padding: 10px;
+    display:flex;
+    justify-content: space-between;
+}
+
+ul li {
+    display: inline;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px;
+    
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    margin-top: 10%;
+}
+
+main div {
+    display: flex;
+    width: fit-content;
+    padding: 20px;
+    align-self: center;
+    margin: 5%;
+}
+
+#questions {
+    font-size: 25px;
+}
+
+#timer {
+    color: crimson;
+}
