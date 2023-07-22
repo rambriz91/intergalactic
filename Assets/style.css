@@ -1,5 +1,5 @@
 * {
-    border:solid red 1px;
+    /* border:solid red 1px; */
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
@@ -39,4 +39,12 @@ main div {
 
 #timer {
     color: crimson;
+}
+
+.startBtn {
+    background-color: blueviolet;
+    font-size: 18px;
+    padding: 10px;
+    color: aliceblue;
+    border-radius: 10%;
 }
