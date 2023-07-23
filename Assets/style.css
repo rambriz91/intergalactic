@@ -41,10 +41,34 @@ main div {
     color: crimson;
 }
 
+#comment {
+    display: flex;
+    width: fit-content;
+    padding: 10px;
+    align-self: center;
+    margin-bottom: 30px;
+    font-size: 20px;
+}
+
 .startBtn {
     background-color: blueviolet;
     font-size: 18px;
     padding: 10px;
     color: aliceblue;
     border-radius: 10%;
+}
+
+.answerBtn {
+    display: block;
+    background-color: rgb(102, 49, 151);
+    font-size: 22px;
+    padding: 15px;
+    color: aliceblue;
+    border-radius: 7%;
+    margin: 20px;
+}
+
+.answerBtn:hover {
+    background-color: aqua;
+    color: rgb(102, 49, 151);
 }
