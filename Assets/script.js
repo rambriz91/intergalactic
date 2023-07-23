@@ -28,20 +28,20 @@ function gameTimer() {
         secondsLeft--;
         timerTxt.textContent = secondsLeft;
 
-        if(secondsLeft === 0) {
+        if (secondsLeft <= 0) {
             clearInterval(timer);
             timerTxt.textContent = '☠️';  
         }
     }, 1000);
 };
 
-function penalize(secondsLeft) {
-    if(secondsLeft <= 5) {
+function penalize() {
+    if (secondsLeft <= 5) {
         secondsLeft = 0;
     } else {
         secondsLeft = secondsLeft - 5;
     }
-}
+};
 
 function init() {
     questionTxt.textContent = 'Intergalactic Coding Quiz Challenge!';

@@ -60,6 +60,7 @@ main div {
 
 .startBtn:hover {
     background-color: chartreuse;
+    color: rgb(102, 49, 151);
 }
 
 .answerBtn {
