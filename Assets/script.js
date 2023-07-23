@@ -2,6 +2,7 @@ var questionTxt = document.querySelector('#questions');
 var answersOl = document.querySelector('#answers');
 var timerTxt = document.querySelector('#timer');
 var commentTxt = document.querySelector('#comment');
+var isWin = false;
 
 var questions = [
     {
@@ -27,10 +28,33 @@ function gameTimer() {
     var timer = setInterval(function() {
         secondsLeft--;
         timerTxt.textContent = secondsLeft;
-
-        if (secondsLeft <= 0) {
+        if (isWin === true) {
             clearInterval(timer);
-            timerTxt.textContent = '☠️';  
+            timerTxt.textContent = '🏆🏆🏆'
+            commentTxt.textContent = '';
+            questionTxt.textContent = '✨You Win!!'
+            while (answersOl.firstChild) {
+                answersOl.removeChild(answersOl.firstChild);
+            }
+            var intergalactic = document.createElement('a');
+            intergalactic.setAttribute('href', 'https://www.youtube.com/watch?v=qORYO0atB6g');
+            answersOl.appendChild(intergalactic)
+
+            var robot = document.createElement('img');
+            robot.setAttribute('src', 'Assets/robot.gif');
+            intergalactic.appendChild(robot);
+        }
+        else if (secondsLeft <= 0) {
+            clearInterval(timer);
+            timerTxt.textContent = '☠️☠️☠️';
+            commentTxt.textContent = '';
+            questionTxt.textContent = 'You Lose!!';
+            while (answersOl.firstChild) {
+                answersOl.removeChild(answersOl.firstChild);
+            };
+            var deadRobot = document.createElement('img');
+            deadRobot.setAttribute('src','Assets/deadrobot.gif');
+            answersOl.appendChild(deadRobot);  
         }
     }, 1000);
 };
@@ -62,6 +86,7 @@ function init() {
 function renderQuestion(q) {
     if (q > 2) {
         console.log('You Win');
+        isWin = true;
     } else {
         questionTxt.textContent = questions[q].question;
         for (var i = 0; i < questions[q].answers.length; i++) {
