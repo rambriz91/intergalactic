@@ -2,17 +2,27 @@ var questionTxt = document.querySelector('#questions');
 var answersOl = document.querySelector('#answers');
 var timerTxt = document.querySelector('#timer');
 var commentTxt = document.querySelector('#comment');
+var q;
 
-var questions = {
-    question_1: 'We will learn all of the following languages except?',
-    answers_1: ['Javascript', 'Python', 'Hyper Text Markup Langauge', 'Cascading Style Sheets'],
+var questions = [
+    {
+        question: 'We will learn all of the following languages except?',
+        answers: ['Javascript', 'Python', 'Hyper Text Markup Langauge', 'Cascading Style Sheets'],
+        correct: 'Python',
+    },
 
-    question_2: 'Which of the following is not a primitive type?',
-    answers_2: ['Boolean', 'Number', 'String', 'Undefined', 'They are all primitive!'],
+    {
+        question: 'Which of the following is not a primitive type?',
+        answers: ['Boolean', 'Number', 'String', 'Undefined', 'They are all primitive!'],
+        correct: 'They are all primitive!',
+    },
 
-    question_3: 'JSON.parse() does which of the following?',
-    question_3: ['Coerces JSON strings into numbers', 'Converts JSON object into string', 'Converts JSON string to an object', 'Press "X" for JSON!']
-}
+    {
+        question: 'JSON.parse() does which of the following?',
+        question: ['Coerces JSON strings into numbers', 'Converts JSON object into string', 'Converts JSON string to an object', 'Press "X" for JSON!'],
+        correct: 'Converts JSON string to an object',
+    }
+]
 
 function gameTimer() {
     var timer = setInterval(function() {
@@ -30,7 +40,7 @@ function penalize(secondsLeft) {
     if(secondsLeft <= 5) {
         secondsLeft = 0;
     } else {
-        secondsLeft = secondsLeft-5;
+        secondsLeft = secondsLeft - 5;
     }
 }
 
@@ -43,33 +53,56 @@ function init() {
     startBtn.addEventListener('click', function() {
         answersOl.removeChild(startBtn)
         secondsLeft = 60;
+        q = 0;
         gameTimer();
-        firstQ();
+        renderQuestion(q);
     })
     
 };
 
-function firstQ() {
-    questionTxt.textContent = questions.question_1;
-    for (var i = 0; i < questions.answers_1.length; i++) {
+function renderQuestion(q) {
+    questionTxt.textContent = questions[q].question;
+    for (var i = 0; i < questions[q].answers.length; i++) {
         var answerBtn = document.createElement('button');
-        answerBtn.textContent = questions.answers_1[i];
+        answerBtn.textContent = questions[q].answers[i];
         answerBtn.setAttribute('class', 'answerBtn');
-        answersOl.appendChild(answerBtn)
+        answersOl.appendChild(answerBtn);
         answerBtn.addEventListener('click', function(event) {
-            if (event.target.textContent === questions.answers_1[1]) {
+            if (event.target.textContent === questions[q].correct) {
                 commentTxt.textContent = 'Correct!';
-                // for (var i = 0; i < questions.answers_1.length; i++) {
-                //     answersOl.removeChild(answerBtn); 
-                // }
+                q++;
+                renderQuestion(q);
+                
             } else {
                 commentTxt.textContent = 'Wrong!';
                 penalize(secondsLeft);
             }
-            
         })
-    }
 
+    }
 }
 
 init()
+console.log(questions[0].question)
+
+// function firstQ() {
+//     questionTxt.textContent = questions.question_1;
+//     for (var i = 0; i < questions.answers_1.length; i++) {
+//         var answerBtn = document.createElement('button');
+//         answerBtn.textContent = questions.answers_1[i];
+//         answerBtn.setAttribute('class', 'answerBtn');
+//         answersOl.appendChild(answerBtn)
+//         answerBtn.addEventListener('click', function(event) {
+//             if (event.target.textContent === questions.answers_1[1]) {
+//                 commentTxt.textContent = 'Correct!';
+//                 // for (var i = 0; i < questions.answers_1.length; i++) {
+//                 //     answersOl.removeChild(answerBtn); 
+//                 // }
+//             } else {
+//                 commentTxt.textContent = 'Wrong!';
+//                 penalize(secondsLeft);
+//             }
+            
+//         })
+//     }
+// };
