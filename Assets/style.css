@@ -1,6 +1,7 @@
 * {
     /* border:solid red 1px; */
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: aliceblue;
 }
 
 ul {
@@ -76,4 +77,14 @@ main div {
 .answerBtn:hover {
     background-color: aqua;
     color: rgb(102, 49, 151);
+}
+
+.space {
+    background-image:url(./space.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.light {
+    color: black;
 }

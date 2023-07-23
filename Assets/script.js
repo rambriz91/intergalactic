@@ -2,7 +2,9 @@ var questionTxt = document.querySelector('#questions');
 var answersOl = document.querySelector('#answers');
 var timerTxt = document.querySelector('#timer');
 var commentTxt = document.querySelector('#comment');
+var lightEl = document.querySelectorAll('.light');
 var isWin = false;
+var start = false;
 
 var questions = [
     {
@@ -23,6 +25,20 @@ var questions = [
         correct: 'Converts JSON string to an object',
     }
 ];
+
+function startSet() {
+    if (start === false) {
+        console.log(lightEl);
+        start = true;
+    } else {
+        lightEl.forEach((lightEl) => {
+            lightEl.classList.remove('light');
+        });
+        document.body.setAttribute('class','space');
+        
+        start = false;
+    }
+};
 
 function gameTimer() {
     var timer = setInterval(function() {
@@ -68,12 +84,14 @@ function penalize() {
 };
 
 function init() {
+    startSet();
     questionTxt.textContent = 'Intergalactic Coding Quiz Challenge!';
     var startBtn = document.createElement('button');
     startBtn.setAttribute('class', 'startBtn');
     startBtn.textContent = 'Start Quiz';
     answersOl.appendChild(startBtn);
     startBtn.addEventListener('click', function() {
+        startSet()
         answersOl.removeChild(startBtn)
         secondsLeft = 60;
         q = 0;
