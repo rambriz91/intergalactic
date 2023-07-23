@@ -2,7 +2,6 @@ var questionTxt = document.querySelector('#questions');
 var answersOl = document.querySelector('#answers');
 var timerTxt = document.querySelector('#timer');
 var commentTxt = document.querySelector('#comment');
-var q;
 
 var questions = [
     {
@@ -19,10 +18,10 @@ var questions = [
 
     {
         question: 'JSON.parse() does which of the following?',
-        question: ['Coerces JSON strings into numbers', 'Converts JSON object into string', 'Converts JSON string to an object', 'Press "X" for JSON!'],
+        answers: ['Coerces JSON strings into numbers', 'Converts JSON object into string', 'Converts JSON string to an object', 'Press "X" for JSON!'],
         correct: 'Converts JSON string to an object',
     }
-]
+];
 
 function gameTimer() {
     var timer = setInterval(function() {
@@ -76,33 +75,10 @@ function renderQuestion(q) {
             } else {
                 commentTxt.textContent = 'Wrong!';
                 penalize(secondsLeft);
-            }
+            } return q;
         })
 
     }
 }
 
 init()
-console.log(questions[0].question)
-
-// function firstQ() {
-//     questionTxt.textContent = questions.question_1;
-//     for (var i = 0; i < questions.answers_1.length; i++) {
-//         var answerBtn = document.createElement('button');
-//         answerBtn.textContent = questions.answers_1[i];
-//         answerBtn.setAttribute('class', 'answerBtn');
-//         answersOl.appendChild(answerBtn)
-//         answerBtn.addEventListener('click', function(event) {
-//             if (event.target.textContent === questions.answers_1[1]) {
-//                 commentTxt.textContent = 'Correct!';
-//                 // for (var i = 0; i < questions.answers_1.length; i++) {
-//                 //     answersOl.removeChild(answerBtn); 
-//                 // }
-//             } else {
-//                 commentTxt.textContent = 'Wrong!';
-//                 penalize(secondsLeft);
-//             }
-            
-//         })
-//     }
-// };
