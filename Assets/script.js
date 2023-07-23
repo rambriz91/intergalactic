@@ -60,25 +60,31 @@ function init() {
 };
 
 function renderQuestion(q) {
-    questionTxt.textContent = questions[q].question;
-    for (var i = 0; i < questions[q].answers.length; i++) {
-        var answerBtn = document.createElement('button');
-        answerBtn.textContent = questions[q].answers[i];
-        answerBtn.setAttribute('class', 'answerBtn');
-        answersOl.appendChild(answerBtn);
-        answerBtn.addEventListener('click', function(event) {
-            if (event.target.textContent === questions[q].correct) {
-                commentTxt.textContent = 'Correct!';
-                q++;
-                renderQuestion(q);
+    if (q > 2) {
+        console.log('You Win');
+    } else {
+        questionTxt.textContent = questions[q].question;
+        for (var i = 0; i < questions[q].answers.length; i++) {
+            var answerBtn = document.createElement('button');
+            answerBtn.textContent = questions[q].answers[i];
+            answerBtn.setAttribute('class', 'answerBtn');
+            answersOl.appendChild(answerBtn);
+            answerBtn.addEventListener('click', function(event) {
+                if (event.target.textContent === questions[q].correct) {
+                    commentTxt.textContent = 'Correct!';
+                    q++;
+                    while (answersOl.firstChild) {
+                        answersOl.removeChild(answersOl.firstChild)
+                    };
+                    renderQuestion(q);
                 
-            } else {
+                } else {
                 commentTxt.textContent = 'Wrong!';
                 penalize(secondsLeft);
-            } return q;
+                } return q;
         })
 
     }
-}
+}}
 
 init()

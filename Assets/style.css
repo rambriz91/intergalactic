@@ -22,7 +22,7 @@ main {
     flex-wrap: wrap;
     flex-direction: column;
     align-content: center;
-    margin-top: 10%;
+    margin-top: 2%;
 }
 
 main div {
@@ -30,7 +30,7 @@ main div {
     width: fit-content;
     padding: 20px;
     align-self: center;
-    margin: 5%;
+    margin: 3%;
 }
 
 #questions {
@@ -58,6 +58,10 @@ main div {
     border-radius: 10%;
 }
 
+.startBtn:hover {
+    background-color: chartreuse;
+}
+
 .answerBtn {
     display: block;
     background-color: rgb(102, 49, 151);
@@ -65,7 +69,7 @@ main div {
     padding: 15px;
     color: aliceblue;
     border-radius: 7%;
-    margin: 20px;
+    margin: 10px;
 }
 
 .answerBtn:hover {
