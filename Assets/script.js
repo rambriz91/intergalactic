@@ -3,6 +3,7 @@ var answersOl = document.querySelector('#answers');
 var timerTxt = document.querySelector('#timer');
 var commentTxt = document.querySelector('#comment');
 var lightEl = document.querySelectorAll('.light');
+var scoreEl = document.querySelector('#scoreboard');
 var isWin = false;
 var start = false;
 
@@ -36,7 +37,6 @@ var questions = [
 
 function startSet() {
     if (start === false) {
-        console.log(lightEl);
         start = true;
     } else {
         lightEl.forEach((lightEl) => {
@@ -137,12 +137,10 @@ function renderQuestion(q) {
 }}
 
 function saveScore() {
-    
         var player = {
             initials: prompt('Please input your initials'),
             score: secondsLeft
         };
-        
         if (player.initials === "") {
             alert('Please enter your initials!');
             saveScore();
@@ -152,11 +150,31 @@ function saveScore() {
         }
     };
 
+function showScore() {
+    if (isWin === true || start === true) {
+        scoreEl.addEventListener('click', function() {
+            clearOl();
+            var scoreBoard = JSON.parse(localStorage.getItem('pScore'))
+            for (var i = 0; i < scoreBoard.length; i++) {
+                var scoreLi = document.createElement('li');
+                scoreLi.setAttribute('class', 'scoreboard');
+                scoreLi.textContent = 'Player: ' + scoreBoard[i].initials +  ' || Score: ' + scoreBoard[i].score;
+                answersOl.appendChild(scoreLi);
+            }
+            addReturn();
+            }
+        )} else {
+            scoreEl.disabled = true;
+        }
+
+    }
+
+
 function clearOl() {
     while (answersOl.firstChild) {
         answersOl.removeChild(answersOl.firstChild);
     };
-}
+};
 
 function addReturn() {
     var returnBtn = document.createElement('button');
@@ -167,8 +185,7 @@ function addReturn() {
         clearOl();
         init();
     })
-}
+};
 
-
-
-init()
+init();
+showScore();
