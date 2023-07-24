@@ -56,13 +56,11 @@ function gameTimer() {
             clearInterval(timer);
             timerTxt.textContent = '🏆🏆🏆'
             commentTxt.textContent = 'Your score is ' + secondsLeft + '!';
-            questionTxt.textContent = '✨You Win!!'
-            while (answersOl.firstChild) {
-                answersOl.removeChild(answersOl.firstChild);
-            }
+            questionTxt.textContent = '✨You Win!!';
+            clearOl();
             var intergalactic = document.createElement('a');
             intergalactic.setAttribute('href', 'https://www.youtube.com/watch?v=qORYO0atB6g');
-            answersOl.appendChild(intergalactic)
+            answersOl.appendChild(intergalactic);
 
             var robot = document.createElement('img');
             robot.setAttribute('src', 'Assets/robot.gif');
@@ -75,9 +73,7 @@ function gameTimer() {
             timerTxt.textContent = '☠️☠️☠️';
             commentTxt.textContent = '';
             questionTxt.textContent = 'You Lose!!';
-            while (answersOl.firstChild) {
-                answersOl.removeChild(answersOl.firstChild);
-            };
+            clearOl();
             var deadRobot = document.createElement('img');
             deadRobot.setAttribute('src','Assets/deadrobot.gif');
             answersOl.appendChild(deadRobot);  
@@ -128,9 +124,7 @@ function renderQuestion(q) {
                 if (event.target.textContent === questions[q].correct) {
                     commentTxt.textContent = 'Correct!';
                     q++;
-                    while (answersOl.firstChild) {
-                        answersOl.removeChild(answersOl.firstChild)
-                    };
+                    clearOl();
                     renderQuestion(q);
                 
                 } else {
@@ -156,7 +150,13 @@ function saveScore() {
             pScore.push(player);
             localStorage.setItem('pScore', JSON.stringify(pScore));
         }
-    }
+    };
+
+function clearOl() {
+    while (answersOl.firstChild) {
+        answersOl.removeChild(answersOl.firstChild);
+    };
+}
 
 function addReturn() {
     var returnBtn = document.createElement('button');
@@ -164,9 +164,7 @@ function addReturn() {
     returnBtn.textContent = 'Return to Main Screen?'
     answersOl.appendChild(returnBtn);
     returnBtn.addEventListener('click', function() {
-        while (answersOl.firstChild) {
-            answersOl.removeChild(answersOl.firstChild);
-        };
+        clearOl();
         init();
     })
 }
