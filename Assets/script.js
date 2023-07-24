@@ -6,6 +6,8 @@ var lightEl = document.querySelectorAll('.light');
 var isWin = false;
 var start = false;
 
+var pScore = [];
+
 var questions = [
     {
         question: 'We will learn all of the following languages except?',
@@ -23,6 +25,12 @@ var questions = [
         question: 'JSON.parse() does which of the following?',
         answers: ['Coerces JSON strings into numbers', 'Converts JSON object into string', 'Converts JSON string to an object', 'Press "X" for JSON!'],
         correct: 'Converts JSON string to an object',
+    },
+
+    {
+        question: 'Which of the following methods combines two arrays?',
+        answers: ['concat()', 'push()', 'pop()', 'stringify()', 'toUppercase()', 'split()'],
+        correct: 'concat()'
     }
 ];
 
@@ -47,7 +55,7 @@ function gameTimer() {
         if (isWin === true) {
             clearInterval(timer);
             timerTxt.textContent = '🏆🏆🏆'
-            commentTxt.textContent = '';
+            commentTxt.textContent = 'Your score is ' + secondsLeft + '!';
             questionTxt.textContent = '✨You Win!!'
             while (answersOl.firstChild) {
                 answersOl.removeChild(answersOl.firstChild);
@@ -59,6 +67,7 @@ function gameTimer() {
             var robot = document.createElement('img');
             robot.setAttribute('src', 'Assets/robot.gif');
             intergalactic.appendChild(robot);
+            saveScore();
         }
         else if (secondsLeft <= 0) {
             clearInterval(timer);
@@ -102,8 +111,7 @@ function init() {
 };
 
 function renderQuestion(q) {
-    if (q > 2) {
-        console.log('You Win');
+    if (q > questions.length - 1) {
         isWin = true;
     } else {
         questionTxt.textContent = questions[q].question;
@@ -129,5 +137,23 @@ function renderQuestion(q) {
 
     }
 }}
+
+function saveScore() {
+    
+        var player = {
+            initials: prompt('Please input your initials'),
+            score: secondsLeft
+        };
+        
+        if (player.initials === "") {
+            alert('Please enter your initials!');
+            saveScore();
+        } else {
+            pScore.push(player);
+            localStorage.setItem('pScore', JSON.stringify(pScore));
+        }
+    }
+
+
 
 init()
