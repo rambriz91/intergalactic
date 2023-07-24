@@ -68,6 +68,7 @@ function gameTimer() {
             robot.setAttribute('src', 'Assets/robot.gif');
             intergalactic.appendChild(robot);
             saveScore();
+            addReturn();
         }
         else if (secondsLeft <= 0) {
             clearInterval(timer);
@@ -80,6 +81,8 @@ function gameTimer() {
             var deadRobot = document.createElement('img');
             deadRobot.setAttribute('src','Assets/deadrobot.gif');
             answersOl.appendChild(deadRobot);  
+
+            addReturn();
         }
     }, 1000);
 };
@@ -93,6 +96,7 @@ function penalize() {
 };
 
 function init() {
+    isWin = false;
     startSet();
     questionTxt.textContent = 'Intergalactic Coding Quiz Challenge!';
     var startBtn = document.createElement('button');
@@ -153,6 +157,19 @@ function saveScore() {
             localStorage.setItem('pScore', JSON.stringify(pScore));
         }
     }
+
+function addReturn() {
+    var returnBtn = document.createElement('button');
+    returnBtn.setAttribute('class', 'answerBtn');
+    returnBtn.textContent = 'Return to Main Screen?'
+    answersOl.appendChild(returnBtn);
+    returnBtn.addEventListener('click', function() {
+        while (answersOl.firstChild) {
+            answersOl.removeChild(answersOl.firstChild);
+        };
+        init();
+    })
+}
 
 
 
