@@ -1,9 +1,9 @@
 * {
-    /* border:solid red 1px; */
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: aliceblue;
 }
 
+/* Element Selectors  */
 ul {
     padding: 10px;
     display:flex;
@@ -34,6 +34,7 @@ main div {
     margin: 3%;
 }
 
+/* ID selectors  */
 #questions {
     font-size: 25px;
 }
@@ -51,6 +52,7 @@ main div {
     font-size: 20px;
 }
 
+/* Class Selectors  */
 .startBtn {
     background-color: blueviolet;
     font-size: 18px;
@@ -96,8 +98,4 @@ main div {
     font-weight: bold;
     margin: 5px;
     padding: 20px;
-}
-
-.hidden {
-    display: none;
 }

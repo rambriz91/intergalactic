@@ -8,6 +8,7 @@
     <title>Intergalactic</title>
 </head>
 <body>
+    <!-- holds the timer and score elements -->
     <header>
         <ul>
             <li id= "scoreboard" class="light">View Highscores</li>
@@ -15,12 +16,15 @@
         </ul>
     </header>
     <main>
+        <!-- Displayes the questions dynamically  -->
         <div>
             <h1 id="questions" class="light"></h1>
         </div>
+        <!-- Dynamically displays possible answers as buttons and other visual elements  -->
         <div >
             <ol id="answers"></ol>
         </div>
+        <!-- Displays "Correct", or "Wrong" depending on user choice  -->
         <p id="comment"></p>
     </main>
     <script src="./Assets/script.js"></script>

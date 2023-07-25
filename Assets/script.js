@@ -9,6 +9,7 @@ var start = false;
 
 var pScore = [];
 
+//Questions object array
 var questions = [
     {
         question: 'We will learn all of the following languages except?',
@@ -35,6 +36,7 @@ var questions = [
     }
 ];
 
+//sets the theme and changes the theme once the game has started.
 function startSet() {
     if (start === false) {
         start = true;
@@ -48,6 +50,7 @@ function startSet() {
     }
 };
 
+//Game timer handles both the timer element, but also the win conditions of the game, and adjusts the images accordingly
 function gameTimer() {
     var timer = setInterval(function () {
         secondsLeft--;
@@ -83,6 +86,7 @@ function gameTimer() {
     }, 1000);
 };
 
+//penalizes the player if the wrong answer is chosen.
 function penalize() {
     if (secondsLeft <= 5) {
         secondsLeft = 0;
@@ -91,6 +95,7 @@ function penalize() {
     }
 };
 
+// initializes on page load and dynamically adds the text content, start button, and sets the timer after the user clicks start.
 function init() {
     isWin = false;
     startSet();
@@ -107,9 +112,9 @@ function init() {
         gameTimer();
         renderQuestion(q);
     })
-
 };
 
+//displays the current question from the object array and renders the next question if answered correctly.
 function renderQuestion(q) {
     if (q > questions.length - 1) {
         isWin = true;
@@ -132,18 +137,18 @@ function renderQuestion(q) {
                     penalize(secondsLeft);
                 } return q;
             })
-
         }
     }
 }
 
+//saves seconds left to the local storage while also pulling last sessions data.
 function saveScore() {
-    //pScore = [];
-    //var history = JSON.parse(localStorage.getItem('pScore'));
-    //console.log(history)
-    //for (i = 0; i < history.length; i++) {
-     //   pScore.push(history[i]);
-    //};
+    
+    pScore = JSON.parse(localStorage.getItem('PlayerScore'));
+    if (pScore === null) {
+        pScore = [];
+    }
+    
     var player = {
         initials: prompt('Please input your initials'),
         score: secondsLeft
@@ -151,34 +156,21 @@ function saveScore() {
     if (player.initials === "") {
         alert('Please enter your initials!');
         saveScore();
+        addReturn();
     } else {
         pScore.push(player);
         localStorage.setItem('PlayerScore', JSON.stringify(pScore));
     }
 };
 
-function showScore() {
-    scoreEl.addEventListener('click', function () {
-        clearOl();
-        pScore = JSON.parse(localStorage.getItem('PlayerScore'))
-        console.log(pScore[0])
-        for (var i = 0; i < 5; i++) {
-            var scoreLi = document.createElement('li');
-            scoreLi.setAttribute('class', 'scoreboard');
-            scoreLi.textContent = 'Player: ' + pScore[i].initials + ' || Score: ' + pScore[i].score;
-            answersOl.appendChild(scoreLi);
-        }
-        addReturn();
-    })
-}
-
-
+//Clears content in the answersOl so that new content may be displayed.
 function clearOl() {
     while (answersOl.firstChild) {
         answersOl.removeChild(answersOl.firstChild);
     };
 };
 
+//add a return button that allows the user to return to the main menu.
 function addReturn() {
     var returnBtn = document.createElement('button');
     returnBtn.setAttribute('class', 'answerBtn');
@@ -190,5 +182,17 @@ function addReturn() {
     })
 };
 
+//event listener displayes scores when "View Highscores is clicked"
+scoreEl.addEventListener('click', function() {
+    clearOl();
+    pScore = JSON.parse(localStorage.getItem('PlayerScore'))
+    for (var i = 0; i < pScore.length; i++) {
+        var scoreLi = document.createElement('li');
+        scoreLi.setAttribute('class', 'scoreboard');
+        scoreLi.textContent = 'Player: ' + pScore[i].initials + ' || Score: ' + pScore[i].score;
+        answersOl.appendChild(scoreLi);
+    }
+    addReturn();
+})
+
 init();
-showScore();
