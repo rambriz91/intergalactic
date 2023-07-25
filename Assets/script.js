@@ -42,14 +42,14 @@ function startSet() {
         lightEl.forEach((lightEl) => {
             lightEl.classList.remove('light');
         });
-        document.body.setAttribute('class','space');
-        
+        document.body.setAttribute('class', 'space');
+
         start = false;
     }
 };
 
 function gameTimer() {
-    var timer = setInterval(function() {
+    var timer = setInterval(function () {
         secondsLeft--;
         timerTxt.textContent = secondsLeft;
         if (isWin === true) {
@@ -75,8 +75,8 @@ function gameTimer() {
             questionTxt.textContent = 'You Lose!!';
             clearOl();
             var deadRobot = document.createElement('img');
-            deadRobot.setAttribute('src','Assets/deadrobot.gif');
-            answersOl.appendChild(deadRobot);  
+            deadRobot.setAttribute('src', 'Assets/deadrobot.gif');
+            answersOl.appendChild(deadRobot);
 
             addReturn();
         }
@@ -99,7 +99,7 @@ function init() {
     startBtn.setAttribute('class', 'startBtn');
     startBtn.textContent = 'Start Quiz';
     answersOl.appendChild(startBtn);
-    startBtn.addEventListener('click', function() {
+    startBtn.addEventListener('click', function () {
         startSet()
         answersOl.removeChild(startBtn)
         secondsLeft = 60;
@@ -107,7 +107,7 @@ function init() {
         gameTimer();
         renderQuestion(q);
     })
-    
+
 };
 
 function renderQuestion(q) {
@@ -120,54 +120,57 @@ function renderQuestion(q) {
             answerBtn.textContent = questions[q].answers[i];
             answerBtn.setAttribute('class', 'answerBtn');
             answersOl.appendChild(answerBtn);
-            answerBtn.addEventListener('click', function(event) {
+            answerBtn.addEventListener('click', function (event) {
                 if (event.target.textContent === questions[q].correct) {
                     commentTxt.textContent = 'Correct!';
                     q++;
                     clearOl();
                     renderQuestion(q);
-                
-                } else {
-                commentTxt.textContent = 'Wrong!';
-                penalize(secondsLeft);
-                } return q;
-        })
 
+                } else {
+                    commentTxt.textContent = 'Wrong!';
+                    penalize(secondsLeft);
+                } return q;
+            })
+
+        }
     }
-}}
+}
 
 function saveScore() {
-        var player = {
-            initials: prompt('Please input your initials'),
-            score: secondsLeft
-        };
-        if (player.initials === "") {
-            alert('Please enter your initials!');
-            saveScore();
-        } else {
-            pScore.push(player);
-            localStorage.setItem('pScore', JSON.stringify(pScore));
-        }
+    //pScore = [];
+    //var history = JSON.parse(localStorage.getItem('pScore'));
+    //console.log(history)
+    //for (i = 0; i < history.length; i++) {
+     //   pScore.push(history[i]);
+    //};
+    var player = {
+        initials: prompt('Please input your initials'),
+        score: secondsLeft
     };
+    if (player.initials === "") {
+        alert('Please enter your initials!');
+        saveScore();
+    } else {
+        pScore.push(player);
+        localStorage.setItem('PlayerScore', JSON.stringify(pScore));
+    }
+};
 
 function showScore() {
-    if (isWin === true || start === true) {
-        scoreEl.addEventListener('click', function() {
-            clearOl();
-            var scoreBoard = JSON.parse(localStorage.getItem('pScore'))
-            for (var i = 0; i < scoreBoard.length; i++) {
-                var scoreLi = document.createElement('li');
-                scoreLi.setAttribute('class', 'scoreboard');
-                scoreLi.textContent = 'Player: ' + scoreBoard[i].initials +  ' || Score: ' + scoreBoard[i].score;
-                answersOl.appendChild(scoreLi);
-            }
-            addReturn();
-            }
-        )} else {
-            scoreEl.disabled = true;
+    scoreEl.addEventListener('click', function () {
+        clearOl();
+        pScore = JSON.parse(localStorage.getItem('PlayerScore'))
+        console.log(pScore[0])
+        for (var i = 0; i < 5; i++) {
+            var scoreLi = document.createElement('li');
+            scoreLi.setAttribute('class', 'scoreboard');
+            scoreLi.textContent = 'Player: ' + pScore[i].initials + ' || Score: ' + pScore[i].score;
+            answersOl.appendChild(scoreLi);
         }
-
-    }
+        addReturn();
+    })
+}
 
 
 function clearOl() {
@@ -181,7 +184,7 @@ function addReturn() {
     returnBtn.setAttribute('class', 'answerBtn');
     returnBtn.textContent = 'Return to Main Screen?'
     answersOl.appendChild(returnBtn);
-    returnBtn.addEventListener('click', function() {
+    returnBtn.addEventListener('click', function () {
         clearOl();
         init();
     })
